@@ -41,4 +41,11 @@ class SimpleRNGSpec extends FlatSpec with Matchers {
     ints2(2)(SimpleRNG(42)) should be((List(-1281479697, 16159453), SimpleRNG(197491923327988L)))
   }
 
+  // exercise 6.8
+  // TODO: test flatMap
+
+  // exercise 6.9
+  // TODO: test mapViaFlatMap and map2ViaFlatMap
+
+
 }

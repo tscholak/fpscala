@@ -37,6 +37,21 @@ object Chapter6SimpleRNG {
       })
     }
 
+  // exercise 6.8 part 1
+  def flatMap[A, B](f: Rand[A])(g: A => Rand[B]): Rand[B] =
+    rng => {
+      val (a, rng2) = f(rng)
+      g(a)(rng2)
+    }
+
+  // exercise 6.9
+  def mapViaFlatMap[A, B](s: Rand[A])(f: A => B): Rand[B] =
+    flatMap(s)(a => unit(f(a)))
+
+  def map2ViaFlatMap[A, B, C](ra: Rand[A], rb: Rand[B])(f: (A, B) => C): Rand[C] =
+    flatMap(ra)(a => map(rb)(b => f(a, b)))
+
+
   case class SimpleRNG(seed: Long) extends RNG {
 
     def nextInt: (Int, RNG) = {
@@ -65,6 +80,16 @@ object Chapter6SimpleRNG {
   }
 
   def nonNegativeEven: Rand[Int] = map(nonNegativeInt)(i => i - i % 2)
+
+  // exercise 6.8 part 2
+  def nonNegativeLessThan(n: Int): Rand[Int] =
+    flatMap(nonNegativeInt)(i => {
+      val mod = i % n
+      if (i + (n-1) - mod >= 0)
+        unit(mod)
+      else
+        nonNegativeLessThan(n)
+    })
 
   // exercise 6.2
   def double(rng: RNG): (Double, RNG) = {
@@ -119,5 +144,7 @@ object Chapter6SimpleRNG {
   def ints2(count: Int): Rand[List[Int]] =
     sequence(List.fill(count)(int))
 
+  // implementation of rollDie using `map` and `nonNegativeLessThan`
+  def rollDie: Rand[Int] = map(nonNegativeLessThan(6))(_ + 1)
 
 }
