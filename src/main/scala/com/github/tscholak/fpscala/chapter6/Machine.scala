@@ -8,6 +8,11 @@ object Chapter6Machine {
   case object Coin extends Input
   case object Turn extends Input
 
+  // how about a similar implementation for machine outputs?
+  // sealed trait Output
+  // case object Coin extends Output
+  // case object Commodity extends Output
+
   // introduce vending machine type constructor with covariant subtyping
   sealed trait VendingMachine[+A] {
     def dispense(i: Input): (A, VendingMachine[A])
