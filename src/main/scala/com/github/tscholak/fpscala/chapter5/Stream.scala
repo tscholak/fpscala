@@ -124,19 +124,19 @@ object Chapter5Stream {
 
     // exercise 5.13
     def map2[B](f: A => B): Stream[B] =
-      Stream.unfold(this)({
+      Stream.unfold(this)(x => x match {
         case Cons(h, t) => Some((f(h()), t()))
         case _ => None
       })
 
     def take3(n: Int): Stream[A] =
-      Stream.unfold((this, n))({
+      Stream.unfold((this, n))(x => x match {
         case (Cons(h, t), m) if m > 0 => Some((h(), (t(), m-1)))
         case _ => None
       })
 
     def takeWhile3(p: A => Boolean): Stream[A] =
-      Stream.unfold(this)({
+      Stream.unfold(this)(x => x match {
         case Cons(h, t) if p(h()) => Some((h(), t()))
         case _ => None
       })

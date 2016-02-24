@@ -8,26 +8,40 @@ object Chapter6Machine {
   case object Coin extends Input
   case object Turn extends Input
 
-  case class Machine(locked: Boolean, candies: Int, coins: Int)
+  // introduce vending machine type constructor with covariant subtyping
+  sealed trait VendingMachine[+A] {
+    def dispense(i: Input): (A, VendingMachine[A])
+  }
 
-  object Machine {
+  // `Comm` for commodity
+  type Comm[C, D] = State[VendingMachine[C], D]
 
-    def stepMachine(i: Input, m: Machine): Machine = (i, m) match {
-      case (Coin, Machine(true, candies, coins)) if candies > 0 => Machine(false, candies, coins+1)
-      case (Turn, Machine(false, candies, coins)) => Machine(true, candies-1, coins)
-      case (_, Machine(_, _, _)) => m
+  def comm[C](i: Input): Comm[C, C] = State(_.dispense(i))
+
+  def commSeq[C](inputs: List[Input]): Comm[C, List[C]] =
+    State.sequence(inputs.map(comm[C]))
+
+  case class CandyMachine(locked: Boolean, candies: Int, coins: Int) extends VendingMachine[(Int, Int)] {
+
+    def dispense(i: Input): ((Int, Int), VendingMachine[(Int, Int)]) = (i, this) match {
+      case (Coin, CandyMachine(true, candy, coin)) if candy > 0 =>
+        ((0, 0), CandyMachine(locked = false, candy, coin + 1))
+      case (Turn, CandyMachine(false, candy, coin)) =>
+        ((1, 0), CandyMachine(locked = true, candy - 1, coin))
+      case (Coin, CandyMachine(_, _, _)) => ((0, 1), this)
+      case (Turn, CandyMachine(_, _, _)) => ((0, 0), this)
     }
 
-    def simulateMachine(inputs: List[Input]): State[Machine, (Int, Int)] = {
-      // produce list of state updates of type `List[State[Machine, Unit]]`
-      val ls = inputs.map(i => State.modify((m: Machine) => stepMachine(i, m)))
-      for {
-        // combine all the transitions in the list `ls` into a single transition, and discard the output (`List[Unit]`)
-        _ <- State.sequence(ls)
-        // retrieve current state and assign to `s`
-        s <- State.get
-      } yield (s.coins, s.candies)
-    }
+  }
+
+  object CandyMachine {
+
+    def candy(i: Input) = comm[(Int, Int)](i)
+
+    def candySec(inputs: List[Input]) = commSeq[(Int, Int)](inputs)
+
+    def candies(inputs: List[Input]) =
+      candySec(inputs).map(_.foldRight((0, 0))((x, y) => (x._1 + y._1, x._2 + y._2)))
 
   }
 

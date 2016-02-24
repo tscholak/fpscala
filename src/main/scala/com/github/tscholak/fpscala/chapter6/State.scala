@@ -32,6 +32,7 @@ object Chapter6State {
     def unit[S, A](a: A): State[S, A] = State(s => (a, s))
 
     // exercise 6.10
+    // consumes seeds in reverse order
     // def sequence[S, A](ls: List[State[S, A]]): State[S, List[A]] =
     //   State(s => {
     //     ls.foldRight((Nil: List[A], s))((sh, st) => {
