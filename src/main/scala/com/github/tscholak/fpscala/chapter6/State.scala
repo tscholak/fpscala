@@ -2,6 +2,10 @@ package com.github.tscholak.fpscala
 
 object Chapter6State {
 
+  // see also http://typelevel.org/cats/tut/state.html and
+  //          https://github.com/typelevel/cats/blob/master/core/src/main/scala/cats/data/StateT.scala,
+  //          http://doc.akka.io/docs/akka/2.4.2/scala/fsm.html
+
   case class State[S, +A](run: S => (A, S)) {
 
     // exercise 6.10

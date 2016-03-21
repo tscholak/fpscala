@@ -41,11 +41,13 @@ object Chapter6Machine {
 
   object CandyMachine {
 
-    def candy(i: Input) = comm[(Int, Int)](i)
+    def candy(i: Input): State[VendingMachine[(Int, Int)], (Int, Int)] =
+      comm[(Int, Int)](i)
 
-    def candySec(inputs: List[Input]) = commSeq[(Int, Int)](inputs)
+    def candySec(inputs: List[Input]): State[VendingMachine[(Int, Int)], List[(Int, Int)]] =
+      commSeq[(Int, Int)](inputs)
 
-    def candies(inputs: List[Input]) =
+    def candies(inputs: List[Input]): State[VendingMachine[(Int, Int)], (Int, Int)] =
       candySec(inputs).map(_.foldRight((0, 0))((x, y) => (x._1 + y._1, x._2 + y._2)))
 
   }

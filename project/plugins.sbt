@@ -1,6 +1,9 @@
 logLevel := Level.Warn
 
-resolvers += Classpaths.sbtPluginReleases
+resolvers ++= Seq(
+  Classpaths.sbtPluginReleases,
+  "Akka Snapshot Repository" at "http://repo.akka.io/snapshots/"
+)
 
 // Plugin for scoverage:
 addSbtPlugin("org.scoverage" % "sbt-scoverage" % "1.0.1")
