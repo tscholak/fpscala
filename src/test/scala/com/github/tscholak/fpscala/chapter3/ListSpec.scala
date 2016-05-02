@@ -1,8 +1,7 @@
-package com.github.tscholak.fpscala
+package com.github.tscholak.fpscala.chapter3
 
 import scala.{Nil => _, List => _, _}
 import org.scalatest.{Matchers, FlatSpec}
-import Chapter3List._
 
 class ListSpec extends FlatSpec with Matchers {
 

@@ -1,7 +1,7 @@
-package com.github.tscholak.fpscala
+package com.github.tscholak.fpscala.chapter6
 
-import org.scalatest.{Matchers, FlatSpec}
-import Chapter6Machine._
+import Machine._
+import org.scalatest.{FlatSpec, Matchers}
 
 class MachineSpec extends FlatSpec with Matchers {
 

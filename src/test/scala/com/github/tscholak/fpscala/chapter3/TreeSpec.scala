@@ -1,7 +1,6 @@
-package com.github.tscholak.fpscala
+package com.github.tscholak.fpscala.chapter3
 
 import org.scalatest.{Matchers, FlatSpec}
-import Chapter3Tree._
 
 class TreeSpec extends FlatSpec with Matchers {
 

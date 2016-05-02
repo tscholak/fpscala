@@ -1,21 +1,20 @@
-package com.github.tscholak.fpscala
+package com.github.tscholak.fpscala.chapter4
 
 import scala.{Nil => _, List => _, Some => _, None => _, Option => _, Either => _, _}
 import org.scalatest.{Matchers, FlatSpec}
-import Chapter3List._
-import Chapter4Option._
+import com.github.tscholak.fpscala.chapter3._
 
 class OptionSpec extends FlatSpec with Matchers {
 
   // exercise 4.2
   "An empty Sequence" should "have a variance of None" in {
-    variance(Seq.empty[Double]) should be(None)
+    Option.variance(Seq.empty[Double]) should be(None)
   }
   "A Sequence of 1.0" should "have a variance of Some(0)" in {
-    variance(Seq(1.0)) should be(Some(0))
+    Option.variance(Seq(1.0)) should be(Some(0))
   }
   "A Sequence of -1.0,2.0,5.0" should "have a variance of Some(6.0)" in {
-    variance(Seq(-1.0,2.0,5.0)) should be(Some(6.0))
+    Option.variance(Seq(-1.0,2.0,5.0)) should be(Some(6.0))
   }
 
   // exercise 4.4

@@ -1,8 +1,8 @@
-package com.github.tscholak.fpscala
+package com.github.tscholak.fpscala.chapter2
 
 import scala.annotation.tailrec
 
-object Chapter2 {
+object Misc {
 
   // exercise 2.1
   def fib(n: Int): Int = {

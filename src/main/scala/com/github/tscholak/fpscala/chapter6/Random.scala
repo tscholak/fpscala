@@ -1,6 +1,6 @@
-package com.github.tscholak.fpscala
+package com.github.tscholak.fpscala.chapter6
 
-object Chapter6SimpleRNG {
+object Random {
 
   trait RNG {
     def nextInt: (Int, RNG)

@@ -1,7 +1,7 @@
-package com.github.tscholak.fpscala
+package com.github.tscholak.fpscala.chapter2
 
 import org.scalatest.{Matchers, FlatSpec}
-import Chapter2._
+import Misc._
 
 class MiscSpec extends FlatSpec with Matchers {
 

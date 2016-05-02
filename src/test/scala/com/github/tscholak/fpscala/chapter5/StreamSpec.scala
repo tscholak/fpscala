@@ -1,7 +1,6 @@
-package com.github.tscholak.fpscala
+package com.github.tscholak.fpscala.chapter5
 
 import org.scalatest.{Matchers, FlatSpec}
-import Chapter5Stream._
 
 class StreamSpec extends FlatSpec with Matchers {
 

@@ -1,9 +1,9 @@
-package com.github.tscholak.fpscala
+package com.github.tscholak.fpscala.chapter6
 
 import org.scalatest.{Matchers, FlatSpec}
-import Chapter6SimpleRNGViaState._
+import RandomState._
 
-class SimpleRNGViaStateSpec extends FlatSpec with Matchers {
+class RandomStateSpec extends FlatSpec with Matchers {
 
   "The next pseudo-random integer following a seed of 42" should "be 16159453" in {
     int.run(SimpleRNG(42))._1 should be (16159453)

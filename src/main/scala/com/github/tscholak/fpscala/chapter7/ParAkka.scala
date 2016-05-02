@@ -1,10 +1,5 @@
-package com.github.tscholak.fpscala
+package com.github.tscholak.fpscala.chapter7
 
-//import akka.actor.Actor
-//import akka.actor.Actor._
+import akka.actor.Actor
 
-object Chapter6ParAkka {
-
-
-
-}
+object ParAkka { }

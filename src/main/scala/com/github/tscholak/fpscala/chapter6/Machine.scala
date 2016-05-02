@@ -1,8 +1,6 @@
-package com.github.tscholak.fpscala
+package com.github.tscholak.fpscala.chapter6
 
-import Chapter6State._
-
-object Chapter6Machine {
+object Machine {
 
   sealed trait Input
   case object Coin extends Input
